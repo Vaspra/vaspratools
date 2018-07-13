@@ -92,9 +92,13 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1):
             # Attempt download
             try:
                 img = requests.get(img_url).content
-                img_filetype = str('.' + img_url.rsplit('.',1)[-1])
+                
+                img_filetype = str('.' + img_url.rsplit('.',1)[-1])\
+                                 .split('/',1)[0].split('\\',1)[0].split('?',1)[0]
+                                 
                 local_filename = str(search_term.replace(' ','_') +\
                                  str(successful_downloads) + img_filetype)
+                
                 with open(img_dir + local_filename, 'wb') as f:
                     f.write(img)
                 print('Successfully downloaded: %s\nOUTPUT --> %s\n'\
