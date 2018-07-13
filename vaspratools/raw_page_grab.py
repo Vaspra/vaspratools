@@ -10,14 +10,19 @@ from requests.exceptions import RequestException
 from contextlib import closing
 
 
-def raw_page_grab(url):
+def raw_page_grab(url, user_agent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
     If the content-type of response is some kind of HTML/XML, return the
     text content, otherwise return None.
     """
+    
+    headers = {
+    'User-Agent': user_agent
+    }
+    
     try:
-        with closing(get(url, stream=True)) as resp:
+        with closing(get(url, stream=True, headers=headers)) as resp:
             if is_good_response(resp):
                 return resp.content
             else:
