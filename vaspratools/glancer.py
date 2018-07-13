@@ -67,7 +67,7 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1):
             
             # Click on the thumbnail image node to expand it and wait
             node.click()
-            time.sleep(0.5)
+            time.sleep(0.8)
             
             # Get the large image node
             large_img_nodes = driver.find_elements_by_xpath\
