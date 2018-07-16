@@ -10,7 +10,7 @@ from selenium import webdriver
 
 
 
-def grab_images(search_terms, output_dir:str=None, img_count:int=1):
+def grab_images(search_terms, output_dir:str=None, img_count:int=1, minimized=True):
     """
     Takes an input list of strings (or a single string) and searches Google
     images for it. Downloads and stores the first hit in current directory,
@@ -26,6 +26,10 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1):
 
     # Setup Selenium (this will open an automated browser)
     driver = webdriver.Chrome()
+    
+    # Minimise the window to not be in the way unless specified not too
+    if minimized:
+        driver.minimize_window()
     
     # If single term is provided, try to make it a single item list
     if type(search_terms) != list:
@@ -50,6 +54,8 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1):
     
     # For each search term given, run the search
     for search_term in search_terms:
+        
+        search_term = search_term.replace('/',' ').replace('\\',' ')
         
         query = search_term.replace(' ', '+')
         search_url = URL_HEAD + query + URL_TAIL
