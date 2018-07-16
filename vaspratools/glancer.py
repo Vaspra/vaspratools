@@ -102,6 +102,9 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1, minimized=Tr
                 img_filetype = str('.' + img_url.rsplit('.',1)[-1])\
                                  .split('/',1)[0].split('\\',1)[0].split('?',1)[0]
                                  
+                if img_filetype == '.com':
+                    img_filetype = '.jpg'
+                                 
                 local_filename = str(search_term.replace(' ','_') +\
                                  str(successful_downloads) + img_filetype)
                 
