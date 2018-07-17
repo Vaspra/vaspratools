@@ -5,17 +5,17 @@ Created on Mon Jul  2 14:51:00 2018
 @author: Doug
 """
 
-from requests import get
-from requests.exceptions import RequestException
-from contextlib import closing
-from lxml import html
+from requests import get as _get
+from requests.exceptions import RequestException as _RequestException
+from contextlib import closing as _closing
+from lxml import html as _html
 
 
 def get_page(url:str, user_agent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
     If the content-type of response is some kind of HTML/XML, return the
-    text content, otherwise return None.
+    text content as bytes, otherwise return None.
     """
     
     headers = {
@@ -23,13 +23,13 @@ def get_page(url:str, user_agent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.3
     }
     
     try:
-        with closing(get(url, stream=True, headers=headers)) as resp:
+        with _closing(_get(url, stream=True, headers=headers)) as resp:
             if _is_good_response(resp):
                 return resp.content
             else:
                 return None
 
-    except RequestException as e:
+    except _RequestException as e:
         _log_error('Error during requests to {0} : {1}'.format(url, str(e)))
         return None
 
@@ -70,7 +70,7 @@ def get_tree(url, isPageBytes=False):
         raise Exception('Expected page to be bytes-like, but was %s-like'
                         % str(type(page)))
         
-    tree = html.fromstring(page)
+    tree = _html.fromstring(page)
     
     return tree
     
