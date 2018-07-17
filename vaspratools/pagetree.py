@@ -2,7 +2,7 @@
 """
 Created on Mon Jul  2 14:51:00 2018
 
-@author: Doug Lawrence - Git: Vaspra
+@author: Doug Lawrence - Github: Vaspra
 
 
 A shortcut for getting an xpath-able tree from a URL. Typical usage involves
@@ -14,7 +14,6 @@ This will create a tree of the nodes contained in the web page, ready for
 xpathing using:
     
     > tree.xpath('//NODES[@class="SOME_CLASS"]')
-    
 """
 
 from requests import get as _get
