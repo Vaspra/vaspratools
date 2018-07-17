@@ -43,6 +43,8 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1, minimized=Tr
     # Define the output directory
     img_dir = os.getcwd()
     if output_dir:
+        if not output_dir.endswith('/') and not output_dir.endswith('\\'):
+            output_dir += '\\'
         img_dir = os.path.join(img_dir, output_dir)
                           
     # Ensure the img directory exists
