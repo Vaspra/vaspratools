@@ -2,7 +2,19 @@
 """
 Created on Mon Jul  2 14:51:00 2018
 
-@author: Doug
+@author: Doug Lawrence - Git: Vaspra
+
+
+A shortcut for getting an xpath-able tree from a URL. Typical usage involves
+simply importing this package and using:
+    
+    > tree = pagetree.get_tree('YOUR_URL')
+
+This will create a tree of the nodes contained in the web page, ready for
+xpathing using:
+    
+    > tree.xpath('//NODES[@class="SOME_CLASS"]')
+    
 """
 
 from requests import get as _get
@@ -56,7 +68,7 @@ def get_tree(url, isPageBytes=False):
     Requests the url to retrieve an html page, and converts that into
     an xpath-able tree.
     
-    Can alternatively instruct the function to take a raw (byte-like) page
+    Can alternatively instruct the function to take a raw (bytes-like) page
     instead of a url as input.
     """
     
