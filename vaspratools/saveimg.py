@@ -74,8 +74,11 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         new_size = (int(new_w), int(new_h))
             
         # Create the new image
-        new_img = img.resize(new_size, resample=_BI)
-        img = new_img
+        try:
+            img = img.resize(new_size, resample=_BI)
+        except OSError as e:
+            print('Encountered OSError on "%s":\n%s' % (filename, e))
+            return
         
         # Save the image as the same name
         img.save(filepath, 'PNG', optimize=True)
