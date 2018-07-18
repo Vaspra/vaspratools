@@ -73,7 +73,7 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         img = img.resize(new_size, resample=_BI)
         
         # Save the image as the same name
-        img.save(filepath, 'PNG')
+        img.save(filepath, 'PNG', optimize=True)
         
         
         
