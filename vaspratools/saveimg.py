@@ -31,7 +31,10 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
     if not filename:
         filename = str(hash(url)) + '.png'
         
-    if '.' not in filename:
+    elif not filename.endswith('.png'):
+        if len(filename.split('.')[-1]) == 3 or\
+           len(filename.split('.')[-1]) == 4:
+               filename = filename.rsplit('.', 1)[0]
         filename += '.png'
         
     filepath = _os.path.join(path, filename)
