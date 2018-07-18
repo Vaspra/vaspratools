@@ -31,6 +31,9 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
     if not filename:
         filename = str(hash(url)) + '.png'
         
+    if '.' not in filename:
+        filename += '.png'
+        
     filepath = _os.path.join(path, filename)
         
     _req.urlretrieve(url, filepath)
