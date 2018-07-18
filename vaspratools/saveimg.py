@@ -3,19 +3,23 @@
 Created on Wed Jul 18 11:50:37 2018
 @author: Doug
 
-Saves an image from a url to disk.
+Saves an image from a url to disk. Capable of compressing the image, respecting
+the original aspect ratio.
 """
 
 import os as _os
 import urllib.request as _req
 import PIL.Image as _Image
-from PIL.Image import BILINEAR as BI
+from PIL.Image import BILINEAR as _BI
 
 
 def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
     """
     Saves the img from the URL to either the current working directory, or
     a provided 'path' argument.
+    
+    Supply a tuple of the form (int, int) as an argument to fit_to= to force
+    the image to be resized (in pixels). This respects aspect ratio.
     """
     
     if not path.endswith('/') or not path.endswith('\\'):
@@ -60,7 +64,7 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         new_size = (int(new_w), int(new_h))
             
         # Create the new image
-        img = img.resize(new_size, resample=BI)
+        img = img.resize(new_size, resample=_BI)
         
         # Save the image as the same name
         img.save(filepath, 'JPEG')
