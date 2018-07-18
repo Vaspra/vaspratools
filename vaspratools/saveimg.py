@@ -13,7 +13,8 @@ import PIL.Image as _Image
 from PIL.Image import BILINEAR as _BI
 
 
-def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
+def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None,\
+         has_alpha=True):
     """
     Saves the img from the URL to either the current working directory, or
     a provided 'path' argument.
@@ -22,6 +23,11 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
     the image to be resized (in pixels). This respects aspect ratio.
     """
         
+    if has_alpha:
+        ext = '.png'
+    else:
+        ext = '.jpg'
+    
     if not url:
         print('No URL provided\nFilename provided: %s' % filename)
         return
@@ -33,13 +39,13 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         _os.makedirs(path)
         
     if not filename:
-        filename = str(hash(url)) + '.png'
+        filename = str(hash(url)) + ext
         
-    elif not filename.endswith('.png'):
+    elif not filename.endswith(ext):
         if len(filename.split('.')[-1]) == 3 or\
            len(filename.split('.')[-1]) == 4:
                filename = filename.rsplit('.', 1)[0]
-        filename += '.png'
+        filename += ext
         
     filepath = _os.path.join(path, filename)
         
@@ -81,7 +87,11 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
             return
         
         # Save the image as the same name
-        img.save(filepath, 'PNG', optimize=True)
+        if has_alpha:
+            ext_arg = 'PNG'
+        else:
+            ext_arg = 'JPEG'
+        img.save(filepath, ext_arg, optimize=True)
         
         
         
