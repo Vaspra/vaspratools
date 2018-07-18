@@ -21,6 +21,10 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
     Supply a tuple of the form (int, int) as an argument to fit_to= to force
     the image to be resized (in pixels). This respects aspect ratio.
     """
+        
+    if not url:
+        print('No URL provided\nFilename provided: %s' % filename)
+        return
     
     if not path.endswith('/') or not path.endswith('\\'):
         path = str(path + '/')
