@@ -29,7 +29,7 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         _os.makedirs(path)
         
     if not filename:
-        filename = str(hash(url)) + '.jpg'
+        filename = str(hash(url)) + '.png'
         
     filepath = _os.path.join(path, filename)
         
@@ -67,7 +67,7 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None):
         img = img.resize(new_size, resample=_BI)
         
         # Save the image as the same name
-        img.save(filepath, 'JPEG')
+        img.save(filepath, 'PNG')
         
         
         
