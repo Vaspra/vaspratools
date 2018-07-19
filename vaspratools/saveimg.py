@@ -14,7 +14,7 @@ from PIL.Image import BILINEAR as _BI
 
 
 def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None,\
-         has_alpha=True):
+         has_alpha=True, quality=95):
     """
     Saves the img from the URL to either the current working directory, or
     a provided 'path' argument.
@@ -91,7 +91,7 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None,\
             ext_arg = 'PNG'
         else:
             ext_arg = 'JPEG'
-        img.save(filepath, ext_arg, optimize=True)
+        img.save(filepath, ext_arg, optimize=True, quality=quality)
         
         
         

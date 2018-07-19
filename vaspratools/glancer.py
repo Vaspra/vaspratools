@@ -12,7 +12,8 @@ from selenium import webdriver
 
 
 def grab_images(search_terms, output_dir:str=None,\
-                img_count:int=1, fit_to:tuple=None, has_alpha=False):
+                img_count:int=1, fit_to:tuple=None,\
+                has_alpha=True, quality:int=None):
     """
     Takes an input list of strings (or a single string) and searches Google
     images for it. Downloads and stores the first hit in current directory,
@@ -101,7 +102,8 @@ def grab_images(search_terms, output_dir:str=None,\
                                      str(successful_downloads))
                 
                 saveimg.save(img_url, filename=local_filename, path=img_dir,\
-                             fit_to=fit_to, has_alpha=has_alpha)
+                             fit_to=fit_to, has_alpha=has_alpha,\
+                             quality=quality)
                 
                 print('Successfully downloaded: %s\nOUTPUT --> %s\n'\
                        % (img_url, local_filename))
