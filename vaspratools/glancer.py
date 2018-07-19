@@ -6,11 +6,14 @@ import time
 import requests
 import os
 
+from . import saveimg
+
 from selenium import webdriver
 
 
 
-def grab_images(search_terms, output_dir:str=None, img_count:int=1):
+def grab_images(search_terms, output_dir:str=None,\
+                img_count:int=1, fit_to:tuple=None, hasAlpha=False):
     """
     Takes an input list of strings (or a single string) and searches Google
     images for it. Downloads and stores the first hit in current directory,
@@ -95,22 +98,12 @@ def grab_images(search_terms, output_dir:str=None, img_count:int=1):
             
             # Attempt download
             try:
-                img = requests.get(img_url).content
-                
-                '''img_filetype = str('.' + img_url.rsplit('.',1)[-1])\
-                                 .split('/',1)[0].split('\\',1)[0].split('?',1)[0]
-                                 
-                if img_filetype == '.com':
-                    img_filetype = '.jpg' '''
-                    
-                # Force the filetype to be .jpg
-                img_filetype = '.jpg'
-                                 
                 local_filename = str(search_term.replace(' ','_') +\
-                                 str(successful_downloads) + img_filetype)
+                                     str(successful_downloads))
                 
-                with open(img_dir + local_filename, 'wb') as f:
-                    f.write(img)
+                saveimg.save(img_url, filename=local_filename, path=img_dir,\
+                             fit_to=fit_to, hasAlpha=hasAlpha)
+                
                 print('Successfully downloaded: %s\nOUTPUT --> %s\n'\
                        % (img_url, local_filename))
                 
