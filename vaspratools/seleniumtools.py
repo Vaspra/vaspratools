@@ -5,7 +5,7 @@ Various shortcuts for functionality with Selenium (specifically the Chrome
 webdriver).
 """
 
-from time import sleep
+from time import sleep, time
 
 
 def scroll_to_bottom(driver, aggressive=False, aggr_wait=2):
@@ -28,12 +28,16 @@ def scroll_to_bottom(driver, aggressive=False, aggr_wait=2):
     
     # While aggressive, keep checking the page height. If it is different from
     # the last check, the page has extended and another scroll is required.
-    new_h = driver.execute_script('return document.body.scrollHeight')
-    sleep(1)
-    while new_h != h:
-        h = new_h
+    t0 = time()
+    dt = 0
+    h = driver.execute_script('return document.body.scrollHeight')
+    while dt < aggr_wait:
+        sleep(0.1)
+        dt = time() - t0
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        sleep(aggr_wait)
         new_h = driver.execute_script('return document.body.scrollHeight')
-        
+        if new_h != h:
+            t0 = time()
+            h = new_h
+            
     return
