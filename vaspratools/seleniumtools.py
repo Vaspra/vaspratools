@@ -8,13 +8,13 @@ webdriver).
 from time import sleep
 
 
-def scroll_to_bottom(driver, aggressive=False):
+def scroll_to_bottom(driver, aggressive=False, aggr_wait=2):
     """
     Tells the driver to scroll to the bottom of the page.
     
     If the page is built to grow when you reach the bottom, set aggressive=True
     to continually scroll to the bottom until no more page extention is
-    detected.
+    detected. The wait period for this can be set with aggr_wait.
     """
     
     # Get the initial page height
@@ -33,7 +33,7 @@ def scroll_to_bottom(driver, aggressive=False):
     while new_h != h:
         h = new_h
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        sleep(2)
+        sleep(aggr_wait)
         new_h = driver.execute_script('return document.body.scrollHeight')
         
     return
