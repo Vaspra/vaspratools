@@ -56,6 +56,20 @@ def get_twitch_followers(username):
     return followers
 
 
+def get_youtube_subscribers_by_url(url):
+    """
+    Takes a youtube link to the accounts homepage and returns the number
+    of subscribers.
+    """
+    
+    if not url:
+        return ''
+    
+    """tree = pagetree.get_tree(link)"""
+    return ''
+    
+
+
 def get_facebook_likes(username):
     """
     Takes a facebook username and returns the number of likes that
