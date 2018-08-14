@@ -13,6 +13,9 @@ def get_twitter_followers(username):
     account has.
     """
     
+    if not username:
+        return
+    
     TWITTER_URL = 'https://twitter.com'
     
     # Remove '@' if it exists in the username
@@ -28,7 +31,7 @@ def get_twitter_followers(username):
         
         followers = int(node.attrib['title'].strip().split(' ',1)[0]\
             .replace(',',''))
-    except Exception as e:
+    except:
         pass
     
     return followers
@@ -40,12 +43,70 @@ def get_twitch_followers(username):
     account has.
     """
     
+    """if not username:
+        return
+    
     TWITCH_URL = 'https://www.twitch.tv'
     
     url = TWITCH_URL + '/' + username
-    tree = pagetree.get_tree(url)
+    tree = pagetree.get_tree(url)"""
     
     followers = ''
+    
+    return followers
+
+
+def get_facebook_likes(username):
+    """
+    Takes a facebook username and returns the number of likes that
+    account has.
+    """
+    
+    if not username:
+        return
+    
+    FACEBOOK_URL = 'https://www.facebook.com'
+    
+    url = FACEBOOK_URL + '/' + username
+    tree = pagetree.get_tree(url)
+    
+    likes = ''
+    
     try:
-        pre_node = tree.xpath(\
-            '//span[contains(text(), "Followers")]/following-sibling::div/span')[0].text
+        likes = int(tree.xpath('//*[contains(text(), "people like this")]')\
+            [0].text.split(' ',1)[0].replace(',',''))
+    except:
+        pass
+    
+    return likes
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
