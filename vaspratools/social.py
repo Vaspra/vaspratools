@@ -14,7 +14,7 @@ def get_twitter_followers(username):
     """
     
     if not username:
-        return
+        return ''
     
     TWITTER_URL = 'https://twitter.com'
     
@@ -44,7 +44,7 @@ def get_twitch_followers(username):
     """
     
     """if not username:
-        return
+        return ''
     
     TWITCH_URL = 'https://www.twitch.tv'
     
@@ -63,7 +63,7 @@ def get_facebook_likes(username):
     """
     
     if not username:
-        return
+        return ''
     
     FACEBOOK_URL = 'https://www.facebook.com'
     
