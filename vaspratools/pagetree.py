@@ -74,7 +74,11 @@ def get_tree(url, isPageBytes=False):
     
     else:
         page = url
-        
+    
+    if not page:
+        print("get_tree returned a no-tree")
+        return None
+    
     if type(page) != bytes:
         raise Exception('Expected page to be bytes-like, but was %s-like'
                         % str(type(page)))
