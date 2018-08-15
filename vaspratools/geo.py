@@ -22,7 +22,7 @@ def get_latlng(place:str, iso6709_format=False):
     
     tries = 0
     success = False
-    while tries < 10:
+    while tries < 20:
         
         r = _requests.get(url, params=params)
         results = r.json()['results']
