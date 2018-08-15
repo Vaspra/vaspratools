@@ -6,8 +6,8 @@ Created on Wed Aug  15 14:35:24 2018
 Uses Google's API to obtain useful geo data.
 """
 
-import requests
-from time import sleep
+import requests as _requests
+from time import sleep as _sleep
 
 
 def get_latlng(place:str, iso6709_format=False):
@@ -24,7 +24,7 @@ def get_latlng(place:str, iso6709_format=False):
     success = False
     while tries < 10:
         
-        r = requests.get(url, params=params)
+        r = _requests.get(url, params=params)
         results = r.json()['results']
         
         try:
@@ -61,7 +61,7 @@ def get_latlng(place:str, iso6709_format=False):
         if success:
             break
         
-        sleep(0.1)
+        _sleep(0.1)
         tries += 1
         
     if not success:
