@@ -61,7 +61,7 @@ def get_latlng(place:str, iso6709_format=False):
         if success:
             break
         
-        _sleep(0.1)
+        _sleep(0.2)
         tries += 1
         
     if not success:
