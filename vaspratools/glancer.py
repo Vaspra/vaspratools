@@ -10,7 +10,6 @@ from . import saveimg
 from selenium import webdriver
 
 
-
 def grab_images(search_terms, output_dir:str=None,\
                 img_count:int=1, fit_to:tuple=None,\
                 has_alpha=True, quality:int=None):
