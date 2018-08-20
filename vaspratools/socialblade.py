@@ -35,23 +35,32 @@ def get_twitter_data(username):
     try:
         twitter_url = tree.xpath('//a[contains(@href, "twitter.com/")]')[0]\
             .attrib['href']
-    except:
+    except IndexError:
         twitter_url = ''
         
     # Get the follower count
-    followers = int(tree.xpath(\
-        '//span[contains(text(), "Followers")]/following-sibling::span')[0]\
-        .text.replace(',',''))
+    try:
+        followers = int(tree.xpath(\
+            '//span[contains(text(), "Followers")]/following-sibling::span')[0]\
+            .text.replace(',',''))
+    except IndexError:
+        followers = ''
     
     # Get the channel tweets
-    tweets = int(tree.xpath(\
+    try:
+        tweets = int(tree.xpath(\
         '//span[contains(text(), "Tweets")]/following-sibling::span')[0]\
         .text.replace(',',''))
+    except IndexError:
+        tweets = ''
         
     # Get the following count
-    following = int(tree.xpath(\
-        '//span[contains(text(), "Following")]/following-sibling::span')[0]\
-        .text.replace(',',''))
+    try:
+        following = int(tree.xpath(\
+            '//span[contains(text(), "Following")]/following-sibling::span')[0]\
+            .text.replace(',',''))
+    except IndexError:
+        following = ''
     
     data_dict['url'] = twitter_url
     data_dict['followers'] = followers
@@ -83,16 +92,22 @@ def get_twitch_data(username):
     try:
         twitch_url = tree.xpath('//a[contains(@href, "twitch.tv/")]')[0]\
             .attrib['href']
-    except:
+    except IndexError:
         twitch_url = ''
         
     # Get the follower count
-    followers = int(tree.xpath('//p[contains(text(), " followers")]')\
-        [0].text_content().split(' ')[1].replace(',',''))
+    try:
+        followers = int(tree.xpath('//p[contains(text(), " followers")]')\
+            [0].text_content().split(' ')[1].replace(',',''))
+    except IndexError:
+        followers = ''
     
     # Get the channel views
-    views = int(tree.xpath('//p[contains(text(), " channel views")]')\
-        [0].text_content().split(' ')[1].replace(',',''))
+    try:
+        views = int(tree.xpath('//p[contains(text(), " channel views")]')\
+            [0].text_content().split(' ')[1].replace(',',''))
+    except IndexError:
+        views = ''
     
     data_dict['url'] = twitch_url
     data_dict['followers'] = followers
@@ -128,19 +143,28 @@ def get_youtube_data(username):
         youtube_url = ''
         
     # Get the subscriber count
-    subscribers = int(tree.xpath(\
-        '//span[contains(text(), "Subscribers")]/following-sibling::span')[0]\
-        .text.replace(',',''))
+    try:
+        subscribers = int(tree.xpath(\
+            '//span[contains(text(), "Subscribers")]/following-sibling::span')[0]\
+            .text.replace(',',''))
+    except IndexError:
+        subscribers = ''
     
     # Get the channel views
-    views = int(tree.xpath(\
-        '//span[contains(text(), "Video Views")]/following-sibling::span')[0]\
-        .text.replace(',',''))
+    try:
+        views = int(tree.xpath(\
+            '//span[contains(text(), "Video Views")]/following-sibling::span')[0]\
+            .text.replace(',',''))
+    except IndexError:
+        views = ''
         
     # Get the uploads count
-    uploads = int(tree.xpath(\
-        '//span[contains(text(), "Uploads")]/following-sibling::span')[0]\
-        .text.replace(',',''))
+    try:
+        uploads = int(tree.xpath(\
+            '//span[contains(text(), "Uploads")]/following-sibling::span')[0]\
+            .text.replace(',',''))
+    except IndexError:
+        uploads = ''
     
     data_dict['url'] = youtube_url
     data_dict['subscribers'] = subscribers
