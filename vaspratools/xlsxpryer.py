@@ -104,7 +104,7 @@ def fill_col_with_data_dict(ws, key_col, insert_col, data_dict,
     if insert_col_name:
         ws[insert_col + '1'].value = insert_col_name
                 
-    print('\nInserted %d / %d data entries from dictionary into column: \'%s\''\
+    print('\nInserted %d / %d entries into column: \'%s\' using data dict'\
           % (inserts, len(ws[key_col]), insert_col))
     print('%d empty cells, %d unmatched cells'\
           % (empties, unmatched))
