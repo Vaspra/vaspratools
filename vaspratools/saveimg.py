@@ -8,7 +8,8 @@ the original aspect ratio.
 """
 
 import os as _os
-import urllib.request as _req
+from urllib.request import Request as _Request
+from urllib.request import urlopen as _urlopen
 import PIL.Image as _Image
 from PIL.Image import BILINEAR as _BI
 
@@ -49,8 +50,12 @@ def save(url:str, filename:str='', path:str=_os.getcwd(), fit_to:tuple=None,\
         
     filepath = _os.path.join(path, filename)
         
-    _req.urlretrieve(url, filepath)
+    imgdata = _urlopen(_Request(url,\
+        headers={'User-Agent': 'Mozilla/5.0'})).read()
     
+    with open(filepath, 'wb') as f:
+        f.write(imgdata)
+        
     # Compress image if required
     if fit_to:
         
