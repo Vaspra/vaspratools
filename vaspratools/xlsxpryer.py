@@ -40,7 +40,7 @@ def format_list_to_commastring(ls):
     
     string = ''
     for item in ls:
-        string += str(item) + ','
+        string += str(item).strip() + ','
     string = string.strip(',')
     
     return string
