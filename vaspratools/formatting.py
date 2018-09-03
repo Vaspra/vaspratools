@@ -33,6 +33,7 @@ def clean_string(string, allow_numbers=False):
             if char.isalpha() or char == '_':
                 clean += char
                 
-    clean = clean.strip('_')
+    clean = clean.strip('_')\
+        .replace('__','_').replace('__','_').replace('__','_')
             
     return clean
