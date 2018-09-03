@@ -1,7 +1,7 @@
 """
 A series of commonly used formatting functions for clean, consistent data.
 """
-    
+
     
 def format_list_to_commastring(ls):
     """
@@ -32,5 +32,7 @@ def clean_string(string, allow_numbers=False):
         for char in _:
             if char.isalpha() or char == '_':
                 clean += char
+                
+    clean = clean.strip('_')
             
     return clean
