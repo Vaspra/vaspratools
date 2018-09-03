@@ -31,19 +31,6 @@ def get_column(ws, col_index:str, last_row, return_cells=False):
         for cell in cells:
             vals.append(cell.value)
         return vals
-    
-    
-def format_list_to_commastring(ls):
-    """
-    Converts and returns a list into a string, comma separated format.
-    """
-    
-    string = ''
-    for item in ls:
-        string += str(item).strip() + ','
-    string = string.strip(',')
-    
-    return string
 
 
 def fill_col_with_data_dict(ws, key_col, insert_col, data_dict,
