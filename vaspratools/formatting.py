@@ -21,7 +21,7 @@ def clean_string(string, allow_numbers=False):
     Returns the string in all lowercase, only alphabetic and '_' format.
     """
     
-    _ = string.strip().replace(' ','_').lower()
+    _ = string.strip().replace(' ','_').replace('-','_').lower()
     clean = ''
     
     if allow_numbers:
