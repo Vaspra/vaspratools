@@ -116,22 +116,22 @@ def get_twitch_data(username):
     return data_dict
 
 
-def get_youtube_data(username):
+def get_youtube_data(channel_id):
     """
     Returns a dictionary of Twitter user data, if the user can be found.
     """
     
     data_dict = {'url':'','subscribers':'','views':'','uploads':''}
     
-    if not username:
+    if not channel_id:
         return data_dict
     
-    url = YOUTUBE_PRE_URL + username
+    url = 'https://socialblade.com/youtube/channel/' + channel_id
     tree = pagetree.get_tree(url)
     
     # Check whether the username actually exists
     if len(tree.xpath('//*[contains(text(), "Uh Oh! It seems that")]')) == 1:
-        print('\t\'%s\' was not a valid YouTube username!' % username)
+        print('\t\'%s\' was not a valid YouTube channel ID!' % channel_id)
         return data_dict
     
     # Get the url
@@ -145,24 +145,24 @@ def get_youtube_data(username):
     # Get the subscriber count
     try:
         subscribers = int(tree.xpath(\
-            '//span[contains(text(), "Subscribers")]/following-sibling::span')[0]\
-            .text.replace(',',''))
+            '//span[@id="youtube-stats-header-subs"]')[0]\
+            .text.replace(',','').strip())
     except IndexError:
         subscribers = ''
     
     # Get the channel views
     try:
         views = int(tree.xpath(\
-            '//span[contains(text(), "Video Views")]/following-sibling::span')[0]\
-            .text.replace(',',''))
+            '//span[@id="youtube-stats-header-views"]')[0]\
+            .text.replace(',','').strip())
     except IndexError:
         views = ''
         
     # Get the uploads count
     try:
         uploads = int(tree.xpath(\
-            '//span[contains(text(), "Uploads")]/following-sibling::span')[0]\
-            .text.replace(',',''))
+            '//span[@id="youtube-stats-header-uploads"]')[0]\
+            .text.replace(',','').strip())
     except IndexError:
         uploads = ''
     
