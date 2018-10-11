@@ -1,6 +1,10 @@
 """
 A series of commonly used formatting functions for clean, consistent data.
 """
+    
+from glob import glob                                                           
+from cv2 import imread, imwrite
+import os
 
     
 def format_list_to_commastring(ls):
@@ -37,3 +41,17 @@ def clean_string(string, allow_numbers=False):
         .replace('__','_').replace('__','_').replace('__','_')
             
     return clean
+
+
+def convert_to_png(directory='./', locator='*'):
+    """
+    Attemtps to convert all image files in a folder into .png format.
+    """
+    
+    files = glob(os.path.join(directory, locator))
+    
+    for f in files:
+        img = imread(f)
+        imwrite(f[:-3] + 'png', img)
+        
+    print('Ran conversion on {} files'.format(len(files)))
