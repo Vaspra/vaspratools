@@ -50,8 +50,22 @@ def convert_to_png(directory='./', locator='*'):
     
     files = glob(os.path.join(directory, locator))
     
+    skip = 0
+    success = 0
+    fail = 0
     for f in files:
-        img = imread(f)
-        imwrite(f[:-3] + 'png', img)
+        if f.rsplit('.',1)[-1].lower() == 'png':
+            skip += 1
+            continue
+        try:
+            img = imread(f)
+            os.remove(f)
+            imwrite(f[:-3] + 'png', img)
+            success += 1
+        except:
+            print('Failed to convert \'{}\''.format(f))
+            fail += 1
         
-    print('Ran conversion on {} files'.format(len(files)))
+    print('\nRan conversion on {} files'.format(len(files)))
+    print('Succeeded: {}  Failed: {}  Skipped: {}'\
+          .format(success, fail, skip))
