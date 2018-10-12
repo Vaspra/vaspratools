@@ -43,7 +43,7 @@ def clean_string(string, allow_numbers=False):
     return clean
 
 
-def convert_to_png(directory='./', locator='*'):
+def convert_to_png(directory='./', locator='*', replace=True):
     """
     Attemtps to convert all image files in a folder into .png format.
     """
@@ -53,19 +53,53 @@ def convert_to_png(directory='./', locator='*'):
     skip = 0
     success = 0
     fail = 0
+    converted = []
     for f in files:
         if f.rsplit('.',1)[-1].lower() == 'png':
             skip += 1
             continue
         try:
             img = imread(f)
-            os.remove(f)
             imwrite(f[:-3] + 'png', img)
             success += 1
+            converted.append(f)
         except:
             print('Failed to convert \'{}\''.format(f))
             fail += 1
+            
+    if replace:
+        for f in converted:
+            os.remove(f)
         
     print('\nRan conversion on {} files'.format(len(files)))
     print('Succeeded: {}  Failed: {}  Skipped: {}'\
           .format(success, fail, skip))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
