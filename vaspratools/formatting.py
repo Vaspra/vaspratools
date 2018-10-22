@@ -5,7 +5,6 @@ A series of commonly used formatting functions for clean, consistent data.
 from glob import glob                                                           
 import cv2
 import os
-import numpy as np
 
     
 def format_list_to_commastring(ls):
@@ -60,8 +59,8 @@ def convert_to_png(directory='./', locator='*', replace=True):
             skip += 1
             continue
         try:
-            img = imread(f)
-            imwrite(f[:-3] + 'png', img)
+            img = cv2.imread(f)
+            cv2.imwrite(f[:-3] + 'png', img)
             success += 1
             converted.append(f)
         except:
@@ -115,63 +114,3 @@ def remove_empty_images(directory='./', locator='*'):
         
     print('Checked: {}  Removed: {}  Skipped: {}'\
           .format(checked, removed, skipped))
-        
-        
-        
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-=======
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
->>>>>>> 4305f9791fde66c0d034cbe692cb36026f6d5e55
