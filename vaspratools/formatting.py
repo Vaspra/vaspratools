@@ -76,15 +76,16 @@ def convert_to_png(directory='./', locator='*', replace=True):
           .format(success, fail, skip))
     
     
-def remove_empty_images(directory='./', locator='*'):
+def remove_empty_images(directory='./', locator='*', verbose=False):
     """
     Removes any images in the specified directory which contain nothing but
     black.
     """
     
-    print('Cleaning \'{}\' of blank images'.format(directory))
+    print('\nCleaning \'{}\' of blank images'.format(directory))
     
-    files = list(os.walk(directory))[0][1]
+    files = list(os.walk(directory))[0][2]
+    print('Found {} files'.format(len(files)))
     
     checked = 0
     removed = 0
@@ -98,7 +99,8 @@ def remove_empty_images(directory='./', locator='*'):
             img = cv2.imread(fp)
             checked += 1
         except:
-            removed += 1
+            if verbose: print('Skipped: \'{}\''.format(fp))
+            skipped += 1
             continue
 
         # Test whether any of the pixels contain more than a zero
@@ -106,11 +108,14 @@ def remove_empty_images(directory='./', locator='*'):
         
         # If the image contains data, skip it
         if not is_empty:
+            if verbose: print('Skipped: \'{}\''.format(fp))
             skipped += 1
             continue
         
         # Otherwise, delete it
         os.remove(fp)
+        if verbose: print('Removed: \'{}\''.format(fp))
+        removed += 1
         
-    print('Checked: {}  Removed: {}  Skipped: {}'\
+    print('Checked: {}  Removed: {}  Skipped: {}\n'\
           .format(checked, removed, skipped))
