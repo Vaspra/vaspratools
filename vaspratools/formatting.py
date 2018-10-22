@@ -109,7 +109,12 @@ def remove_empty_images(directory='./', locator='*', verbose=False):
             continue
 
         # Test whether any of the pixels contain more than a zero
-        is_empty = False if img.any() else True
+        try:
+            is_empty = False if img.any() else True
+        except AttributeError:
+            if verbose: print('Skipped: \'{}\''.format(fp))
+            skipped += 1
+            continue
         
         # If the image contains data, skip it
         if not is_empty:
