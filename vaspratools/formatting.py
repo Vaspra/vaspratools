@@ -3,8 +3,9 @@ A series of commonly used formatting functions for clean, consistent data.
 """
     
 from glob import glob                                                           
-from cv2 import imread, imwrite
+import cv2
 import os
+import numpy as np
 
     
 def format_list_to_commastring(ls):
@@ -58,9 +59,9 @@ def convert_to_png(directory='./', locator='*'):
             skip += 1
             continue
         try:
-            img = imread(f)
+            img = cv2.imread(f)
             os.remove(f)
-            imwrite(f[:-3] + 'png', img)
+            cv2.imwrite(f[:-3] + 'png', img)
             success += 1
         except:
             print('Failed to convert \'{}\''.format(f))
@@ -69,3 +70,74 @@ def convert_to_png(directory='./', locator='*'):
     print('\nRan conversion on {} files'.format(len(files)))
     print('Succeeded: {}  Failed: {}  Skipped: {}'\
           .format(success, fail, skip))
+    
+    
+def remove_empty_images(directory='./', locator='*'):
+    """
+    Removes any images in the specified directory which contain nothing but
+    black.
+    """
+    
+    print('Cleaning \'{}\' of blank images'.format(directory))
+    
+    files = list(os.walk(directory))[0][1]
+    
+    checked = 0
+    removed = 0
+    skipped = 0
+    for f in files:
+        
+        fp = os.path.join(directory, os.path.basename(f))
+        
+        # Try to open the file using opencv
+        try:
+            img = cv2.imread(fp)
+            checked += 1
+        except:
+            removed += 1
+            continue
+
+        # Test whether any of the pixels contain more than a zero
+        is_empty = False if img.any() else True
+        
+        # If the image contains data, skip it
+        if not is_empty:
+            skipped += 1
+            continue
+        
+        # Otherwise, delete it
+        os.remove(fp)
+        
+    print('Checked: {}  Removed: {}  Skipped: {}'\
+          .format(checked, removed, skipped))
+        
+        
+        
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
