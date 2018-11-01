@@ -4,6 +4,10 @@ Created by Doug Lawrence - Github: Vaspra
 Shortcuts for getting data out of spreadsheets, utilising openpyxl.
 """
 
+alphabet_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+                 'P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC',
+                 'AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO',
+                 'AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ']
 
 def get_column(ws, col_index:str, last_row, return_cells=False):
     """
@@ -95,9 +99,6 @@ def fill_col_with_data_dict(ws, key_col, insert_col, data_dict,
           % (inserts, len(ws[key_col]), insert_col))
     print('%d empty cells, %d unmatched cells'\
           % (empties, unmatched))
-    
-    
-    
     
     
     
