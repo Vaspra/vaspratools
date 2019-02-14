@@ -7,7 +7,10 @@ Shortcuts for getting data out of spreadsheets, utilising openpyxl.
 alphabet_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
                  'P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC',
                  'AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO',
-                 'AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ']
+                 'AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA',
+                 'BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM',
+                 'BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY',
+                 'BZ','CA','CB','CD','CE','CF','CG','CH','CI','CJ','CK','CL',]
 
 def get_column(ws, col_index:str, last_row, return_cells=False):
     """
