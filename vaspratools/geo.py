@@ -7,65 +7,34 @@ Uses Google's API to obtain useful geo data.
 """
 
 import requests as _requests
-from time import sleep as _sleep
+import json as _json
 
 
-def get_latlng(place:str, iso6709_format=False):
+def get_geolocation(location, key, return_req_content=False):
     """
-    Returns the geolocation of the location if there is a match from google.
-    Returns in iso 6709 format if needed '+xx.xxx-xx.xxx/',
-    but returns a float tuple by default.
+    Calls the MAPQUEST Developer API to get the geolocation (iso-6709) of
+    a specified (str) address / location.
+    
+    API key available from 'https://developer.mapquest.com/user/me/apps'
+    once you have a free account setup, under 'Consumer Key'.
     """
     
-    url = 'https://maps.googleapis.com/maps/api/geocode/json'
-    params = {'sensor' : 'false', 'address' : place}
+    location = location.replace('\n', ' ')
+    r = _requests.get('http://www.mapquestapi.com/geocoding/v1/address?key={}&location={}'.format(key, location))
+    if r.status_code != 200:
+        raise Exception('Request failed (status code: {})'.format(r.status_code))
+
+    if return_req_content:
+        return _json.loads(r.content)
     
-    tries = 0
-    success = False
-    while tries < 20:
-        
-        r = _requests.get(url, params=params)
-        results = r.json()['results']
-        
-        try:
-            location = results[0]['geometry']['location']
-            lat = location['lat']
-            lng = location['lng']
-            
-            if iso6709_format:
-                if lat >= 0:
-                    lat_sign = '+'
-                else:
-                    lat_sign = ''
-                
-                if lng >= 0:
-                    lng_sign = '+'
-                else:
-                    lng_sign = ''
-                    
-                geos = '%s%.3f%s%.3f/'\
-                    % (lat_sign, lat,\
-                       lng_sign, lng)
-                success = True
-            
-            else:
-                geos = (lat, lng)
-                success = True
-            
-        except Exception:
-            if iso6709_format:
-                geos = ''
-            else:
-                geos = (None,None)
-            
-        if success:
-            break
-        
-        _sleep(0.2)
-        tries += 1
-        
-    if not success:
-        print('Unable to find \'%s\' after %d tries' % (place, tries))
-        
-    return geos
-        
+    latlng_dict = _json.loads(r.content)['results'][0]['locations'][0]['displayLatLng']
+    lat, lng = latlng_dict.values()
+    string = ''
+    for val in [lat, lng]:
+        val = str(val)
+        if not val.startswith('-'):
+            val = '+' + val
+        string += val
+    string += '/'
+    
+    return string
